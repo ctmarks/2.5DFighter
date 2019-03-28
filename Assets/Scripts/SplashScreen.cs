@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// SplashScreen.cs
@@ -86,6 +87,10 @@ public class SplashScreen : MonoBehaviour
 
         if (_splashScreenFadeValue > 1)                                 // If fade value is greater than one
             _splashScreenFadeValue = 1;                                 // Then set fade value to 1
+
+        if(_splashScreenFadeValue == 1)                                 // If fade value equals 1 
+            _splashScreenController =                                   // Set splash screen controller to equal
+                SplashScreenController.SplashScreenFadeOut;             // splash screen fade out
     }
 
     private void SplashScreenFadeOut()
@@ -99,5 +104,21 @@ public class SplashScreen : MonoBehaviour
 
         if (_splashScreenFadeValue < 0)                                 // If fade value is less than zero
             _splashScreenFadeValue = 0;                                 // Then set fade value to zero
+
+        if (_splashScreenFadeValue == 0)                                // If fade value equals 0 
+            SceneManager.LoadScene("ControllerWarning");                // Load scene ControllerWarning
     }
-}
+
+    void OnGUI()
+    {
+        GUI.DrawTexture(                                                // Draw texture starting at 0,0
+            new Rect(0, 0, Screen.width, Screen.height),                // by the screen width and height
+            _splashScreenBackground);                                   // and draw the background texture
+
+        GUI.color = new Color(1, 1, 1, _splashScreenFadeValue);         // GUI color is equal to (1,1,1) plus fade value
+
+        GUI.DrawTexture(                                                // Draw texture starting at 0,0
+            new Rect(0, 0, Screen.width, Screen.height),                // by the screen width and height
+            _splashScreenText);                                         // and draw the splash screen text
+    }
+}                                                                       

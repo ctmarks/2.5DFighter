@@ -277,9 +277,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cae78f9e8152fb4c842186d0e86080f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _splashScreenBackground: {fileID: 0}
-  _splashScreenText: {fileID: 0}
-  _splashScreenMusic: {fileID: 0}
+  _splashScreenBackground: {fileID: 2800000, guid: c0b9db9d08dcf464992f488868a04b4b,
+    type: 3}
+  _splashScreenText: {fileID: 2800000, guid: bc45ebd7f82cb474d83b42debf208455, type: 3}
+  _splashScreenMusic: {fileID: 8300000, guid: 3135628684c508c4ba7deba77071022b, type: 3}
 --- !u!82 &534669907
 AudioSource:
   m_ObjectHideFlags: 0
