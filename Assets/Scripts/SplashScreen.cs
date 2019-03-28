@@ -21,7 +21,7 @@ public class SplashScreen : MonoBehaviour
     private float _splashScreenFadeValue;                               // Defines fade value 
     private float _splashScreenFadeSpeed = .15f;                        // Defines fade speed
 
-    private SplashScreenController splashScreenController;              // Defines naming convention for splash screen controller
+    private SplashScreenController _splashScreenController;             // Defines naming convention for splash screen controller
 
     private enum SplashScreenController                                 // Defines states for splash screen
     {
@@ -29,10 +29,27 @@ public class SplashScreen : MonoBehaviour
         SplashScreenFadeOut = 1
     }
 
+    void Awake()
+    {
+        _splashScreenFadeValue = 0;                                     // Fade value equals zero on startup
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        Cursor.visible = false;                                         // Set cursor visible state to false
+        Cursor.lockState = CursorLockMode.Locked;                       // and lock the cursor
+
+        _splashScreenAudio = GetComponent<AudioSource>();               // Splash screen audio equals the audio source component
+        _splashScreenAudio.volume = 0;                                  // Audio volume = 0 on startup
+        _splashScreenAudio.clip = _splashScreenMusic;                   // Audio clip equals splash screen music
+        _splashScreenAudio.loop = true;                                 // Set audio to loop
+        _splashScreenAudio.Play();                                      // Play audio
+
+        _splashScreenController =                                       // State equals
+            SplashScreen.SplashScreenController.SplashScreenFadeIn;     // fade in on startup
+
+        StartCoroutine("SplashScreenManager");                          // Start splash screen manager
     }
 
     // Update is called once per frame
