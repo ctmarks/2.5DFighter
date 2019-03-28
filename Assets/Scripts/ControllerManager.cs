@@ -34,15 +34,23 @@ public class ControllerManager : MonoBehaviour
         DontDestroyOnLoad(this);                                    // Don't destroy this gameobject when loading a new scene
     }
 
-    // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        if (_controllerDetected == true)                             // If controller detected equals true
-            return;                                                  // then do nothing and return
+        
     }
 
     private void OnGUI()
     {
-        
+        if (_startUpFinished == false)                               // if startup finished equals false
+            return;                                                  // then do nothing and return
+
+        if (_controllerDetected == true)                             // if controller detected equals true
+            return;                                                  // then do nothing and return
+
+        if (_controllerDetected == false)                            // If controller detected equals false
+            GUI.DrawTexture(new Rect(                                // Draw texture
+                0, 0,                                                // at this position
+                Screen.width, Screen.height),                        // by these dimensions
+                _ControllerNotDetected);                             // draw the controller not detected texture
     }
 }
