@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ControllerWarning.cs
+/// ControllerManager.cs
 /// Christopher Marks
 /// 3/28/2019
 /// </summary>
@@ -36,7 +36,31 @@ public class ControllerManager : MonoBehaviour
 
     void LateUpdate()
     {
-        
+        string[] _joystickNames = Input.GetJoystickNames();         // _joystickNames equals get joystick names from inbuild input
+
+        for (int _js = 0; _js < _joystickNames.Length; _js++)       // Increase counter _js based on joystick names length
+        {
+            if (_joystickNames[_js].Length == 19)                   // If joystick name equals code 19
+            {
+                _pS4Controller = true;                              // Set _pS4Controller to true
+                _controllerDetected = true;                         // Set _controllerDetected to true
+            }
+            if (_joystickNames[_js].Length == 33)                   // If joystick name equals code 19
+            {
+                _xBOXController = true;                             // Set _xBOXController to true
+                _controllerDetected = true;                         // Set _controllerDetected to true
+            }
+
+            if (_joystickNames[_js].Length != 0)                    // If joystick names does not equal zero
+            {
+                return;                                             // then do nothing and return
+            }
+
+            if(string.IsNullOrEmpty(_joystickNames[_js]))           // If string is null/empty ie no controller detected
+            {
+                _controllerDetected = false;                        // then set _controllerDetected to false
+            }
+        }
     }
 
     private void OnGUI()
