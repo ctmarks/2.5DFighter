@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ControllerWarning.unity
     guid: 7d7baac3210a65542bed51ce085013e4
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 8f0277713a2fec14c87cb29878811ac0
   m_configObjects: {}
