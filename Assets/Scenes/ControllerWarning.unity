@@ -207,6 +207,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70188b0aa05493846bee9442aa0aabe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ControllerNotDetected: {fileID: 0}
+  _pS4Controller: 0
+  _xBOXController: 0
+  _controllerDetected: 0
+  _controllerWarningBackground: {fileID: 2800000, guid: c0b9db9d08dcf464992f488868a04b4b,
+    type: 3}
+  _controllerWarningText: {fileID: 2800000, guid: 2f845466fb0aefa4a87f7f44000b0f65,
+    type: 3}
+  _controllerDetectedText: {fileID: 2800000, guid: 77290655f9d8d804c88367af06f6df09,
+    type: 3}
+  _controllerWarningFadeValue: 0
 --- !u!1 &1803493398
 GameObject:
   m_ObjectHideFlags: 0
