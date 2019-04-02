@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// GameManager.cs
+/// ChristopherMarks
+/// 4/2/2019
+/// </summary>
+
 public class GameManager : MonoBehaviour
 {
 
