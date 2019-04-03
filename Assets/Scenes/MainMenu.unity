@@ -282,7 +282,7 @@ MonoBehaviour:
   _timeDelay: 0
   _mainMenuVerticalInputTimer: 0
   _mainMenuVerticalInputDelay: 1
-  _mainMenuBackground: {fileID: 0}
+  _mainMenuBackground: {fileID: 2800000, guid: c0b9db9d08dcf464992f488868a04b4b, type: 3}
   _mainMenuMusic: {fileID: 0}
   _mainMenuStartButtonAudio: {fileID: 0}
   _mainMenuQuitButtonAudio: {fileID: 0}

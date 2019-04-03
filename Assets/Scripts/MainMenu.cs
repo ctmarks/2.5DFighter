@@ -86,7 +86,19 @@ public class MainMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        string[] _joyStickNames = Input.GetJoystickNames();             // _joystick names equals joystick names from inbuilt input
+        for(int _js = 0; _js < _joyStickNames.Length; _js++)            // _js equals the joysticknames length
+        {
+            if (_joyStickNames[_js].Length == 0)                         // If joystick names equals zero (if no controller attached)
+                return;                                                 // then do nothing and return
+
+            if (_joyStickNames[_js].Length == 19)                        // If joystick names equals code 19(ps4 cotnroller)
+                _ps4Controller = true;                                  // then set ps4 controller to true
+
+            if (_joyStickNames[_js].Length == 33)                        // If joystick names equals code 19(ps4 cotnroller)
+                _xBOXController = true;                                  // then set xBOX controller to true
+
+        }
     }
 
     private IEnumerator MainMenuManager()
@@ -168,5 +180,17 @@ public class MainMenu : MonoBehaviour
                 _quittingGame = true;                                   // Set quitting game equal to true
                 break;
         }
+    }
+
+    private void OnGUI()
+    {
+        GUI.DrawTexture(new Rect(                                       // Draw Texture
+            0, 0,                                                       // at this position
+            Screen.width, Screen.height),                               // by these dimensions
+            _mainMenuBackground);                                       // and draw this texture
+
+        GUI.color = new Color(1, 1, 1, _mainMenuFadeValue);             // GUI color is equal to (1,1,1, rgb) plus the fade value(alpha)
+
+        
     }
 }
