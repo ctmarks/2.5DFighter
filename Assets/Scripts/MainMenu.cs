@@ -97,7 +97,74 @@ public class MainMenu : MonoBehaviour
 
             if (_joyStickNames[_js].Length == 33)                        // If joystick names equals code 19(ps4 cotnroller)
                 _xBOXController = true;                                  // then set xBOX controller to true
+        }
 
+        if(_mainMenuVerticalInputTimer > 0)                             // If vertical input timer is greater than zero
+        {
+            _mainMenuVerticalInputTimer -= 1f * Time.deltaTime;         // Then reduce vertical input timer
+
+        }
+
+        if(Input.GetAxis("Vertical") > 0f && _selectedButton == 0)      // If input equals vertical (positive) and selected button equals zero
+        {
+            return;                                                     // Then do nothing and return
+        }
+
+        if (Input.GetAxis("Vertical") > 0f && _selectedButton == 1)      // If input equals vertical (positive) and selected button equals one
+        {
+            if (_mainMenuVerticalInputTimer > 0)                         // If vertical input timer is greater than 0
+            {
+                return;                                                  // Then do nothing and return               
+            }
+            else
+            {
+                _mainMenuVerticalInputTimer = _mainMenuVerticalInputDelay;  // make vertical input timer equal to input delay
+                _selectedButton = 0;                                        // and selected button equal to zero
+            }  
+        }
+
+        if (Input.GetAxis("Vertical") > 0f && _selectedButton == 2)         // If input equals vertical (positive) and selected button equals two
+        {
+            if (_mainMenuVerticalInputTimer > 0)                            // If vertical input timer is greater than 0
+            {
+                return;                                                     // Then do nothing and return               
+            }
+            else
+            {
+                _mainMenuVerticalInputTimer = _mainMenuVerticalInputDelay;  // make vertical input timer equal to input delay
+                _selectedButton = 1;                                        // and selected button equal to one
+            }                                                              
+        }
+
+        if (Input.GetAxis("Vertical") < 0f && _selectedButton == 2)         // If input equals vertical (negative) and selected button equals two
+        {
+            return;                                                         // Then do nothing and return
+        }
+
+        if (Input.GetAxis("Vertical") < 0f && _selectedButton == 0)         // If input equals vertical (negative) and selected button equals zero
+        {
+            if (_mainMenuVerticalInputTimer > 0)                            // If vertical input timer is greater than 0
+            {
+                return;                                                     // Then do nothing and return               
+            }
+            else
+            {
+                _mainMenuVerticalInputTimer = _mainMenuVerticalInputDelay;  // make vertical input timer equal to input delay
+                _selectedButton = 1;                                        // and selected button equal to zero
+            }
+        }
+
+        if (Input.GetAxis("Vertical") < 0f && _selectedButton == 1)         // If input equals vertical (negative) and selected button equals one
+        {
+            if (_mainMenuVerticalInputTimer > 0)                            // If vertical input timer is greater than 0
+            {
+                return;                                                     // Then do nothing and return               
+            }
+            else
+            {
+                _mainMenuVerticalInputTimer = _mainMenuVerticalInputDelay;  // make vertical input timer equal to input delay
+                _selectedButton = 2;                                        // and selected button equal to two
+            }
         }
     }
 
@@ -184,6 +251,13 @@ public class MainMenu : MonoBehaviour
 
     private void OnGUI()
     {
+        if (Time.deltaTime >= _timeDelay && (Input.GetButton("Fire1")))  // If time is greater than or equals our time delay AND input equals "fire 1"
+        {
+            StartCoroutine("MainMenuButtonPress");                      // then start Main Menu button press function
+            _timeDelay = Time.deltaTime + _timeBetweenButtonPress;      // and then make time delay equal time plus time between button press
+        }
+ 
+
         GUI.DrawTexture(new Rect(                                       // Draw Texture
             0, 0,                                                       // at this position
             Screen.width, Screen.height),                               // by these dimensions
@@ -191,6 +265,45 @@ public class MainMenu : MonoBehaviour
 
         GUI.color = new Color(1, 1, 1, _mainMenuFadeValue);             // GUI color is equal to (1,1,1, rgb) plus the fade value(alpha)
 
-        
+        GUI.BeginGroup(new Rect(                                        // Begin GUI Group
+            Screen.width / 2 - _mainMenuButtonWidth / 2,                // at this position x
+            Screen.height / 1.5f,                                       // by this screen position y
+            _mainMenuButtonWidth,                                       // by this dimension x
+            _mainMenuButtonHeight * 3 + _mainMenuGUIOffset * 2));       // by this dimension y
+
+        GUI.SetNextControlName("_onePlayer");                           // Set name to one player
+        if(GUI.Button(new Rect(                                         // Create button
+            0,0,                                                        // at this position
+            _mainMenuButtonWidth, _mainMenuButtonHeight),               // by these dimensions
+            "One Player"))                                              // and print "One PLayer"
+        {
+            _selectedButton = 0;                                        // Set selected button to zero
+            MainMenuButtonPress();                                      // call Main Menu button press function
+        }
+
+        GUI.SetNextControlName("_twoPlayer");                           // Set name to two player
+        if (GUI.Button(new Rect(                                         // Create button
+            0, _mainMenuButtonHeight + _mainMenuGUIOffset,                                                        // at this position
+            _mainMenuButtonWidth, _mainMenuButtonHeight),               // by these dimensions
+            "Two Player"))                                              // and print "Two PLayer"
+        {
+            _selectedButton = 1;                                        // Set selected button to one
+            MainMenuButtonPress();                                      // call Main Menu button press function
+        }
+
+        GUI.SetNextControlName("_quit");                                // Set name to quit
+        if (GUI.Button(new Rect(                                         // Create button
+            0, _mainMenuButtonHeight * 2 + _mainMenuGUIOffset * 2,                                                        // at this position
+            _mainMenuButtonWidth, _mainMenuButtonHeight),               // by these dimensions
+            "Quit"))                                                    // and print "Quit"
+        {
+            _selectedButton = 2;                                        // Set selected button to one
+            MainMenuButtonPress();                                      // call Main Menu button press function
+        }
+
+        GUI.EndGroup();                                                 // End GUI group
+
+        if (_ps4Controller == true || _xBOXController == true)          // if ps4 controller OR xbox controller equals true
+            GUI.FocusControl(_mainMenuButtons[_selectedButton]);        // then focus equals main menu selected button
     }
 }
